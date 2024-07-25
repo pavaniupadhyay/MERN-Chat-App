@@ -1,13 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled from "styled-components"
 import Logo from "../assets/logo.svg"
+import {ToastContainer,toast} from "tostify";
 const Register = () => {
+  const [values,setvalues]=useState({
+    username:"",
+    email:"",
+    password:"",
+    confirmPassword:""
+  })
   const handeleSubmit=(event)=>{
     event.preventDefault();
+    handlevalidation();
   
   }
-  const handlechange=(event)=>{};
+  const handlevalidation=()=>{
+    const {password,confirmPassword,username,email}=values;
+    if(password!==confirmPassword){
+      toast.error("password and confirm password should be same.",{
+        position:"bottom-right",
+        autoClose:8000,
+        pauseOnHover:true,
+        theme:"dark",
+
+
+      });
+    }
+  };
+
+  const handlechange=(event)=>{
+    setvalues({...values,[event.target.name]:event.target.value})
+
+
+
+  };
   return<>
 <Formcontainer>
  <form onSubmit={(event)=> handeleSubmit(event)}>
@@ -39,6 +66,7 @@ const Register = () => {
   <span>Alrady have an account ? <Link to="/login">Login</Link> </span>
   </form>
  </Formcontainer>
+ <ToastContainer/>
 </>
   
 }
@@ -115,6 +143,9 @@ span{
   }
 }
  }
+`;
+const ToastContainer=styled.div`
+
 `;
 
 export default Register

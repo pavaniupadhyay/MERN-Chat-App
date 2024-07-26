@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled from "styled-components"
 import Logo from "../assets/logo.svg"
-import {ToastContainer,toast} from "tostify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from"axios";
+import { registerRoute } from '../APIRoutes';
 const Register = () => {
   const [values,setvalues]=useState({
     username:"",
@@ -10,31 +13,50 @@ const Register = () => {
     password:"",
     confirmPassword:""
   })
-  const handeleSubmit=(event)=>{
+  const toastOptions={
+    position:"bottom-right",
+    autoClose:8000,
+    pauseOnHover:true,
+    draggable:true,
+    theme:"dark"
+  }
+  const handeleSubmit= async(event)=>{
     event.preventDefault();
-    handlevalidation();
+    if(handleValidation()){
+      console.log
+      const { password, confirmPassword, username, email } = values;
+      const {data}=await axios.post(registerRoute,
+        {username,email,password,confirmPassword
+});
+    }
   
   }
-  const handlevalidation=()=>{
-    const {password,confirmPassword,username,email}=values;
-    if(password!==confirmPassword){
-      toast.error("password and confirm password should be same.",{
-        position:"bottom-right",
-        autoClose:8000,
-        pauseOnHover:true,
-        theme:"dark",
-
-
-      });
+  const handleValidation = () => {
+    const { password, confirmPassword, username, email } = values;
+    if (password !== confirmPassword) {
+      toast.error(
+        "Password and confirm password should be same.",
+        toastOptions
+      );
+      return false;
+    } 
+     if (password.length < 8) {
+      toast.error(
+        "Password should be equal or greater than 8 characters.",
+        toastOptions
+      );
+      return false;
+    } else if (email === "") {
+      toast.error("Email is required.", toastOptions);
+      return false;
     }
+
+    return true;
   };
 
   const handlechange=(event)=>{
     setvalues({...values,[event.target.name]:event.target.value})
-
-
-
-  };
+};
   return<>
 <Formcontainer>
  <form onSubmit={(event)=> handeleSubmit(event)}>
@@ -144,8 +166,6 @@ span{
 }
  }
 `;
-const ToastContainer=styled.div`
 
-`;
 
 export default Register

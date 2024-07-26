@@ -22,7 +22,22 @@ if(usernamecheck)
     res.status(200).json({user});
   }catch(ex){
     next(ex);
-    
+
+  }
+};
+module.exports.login=async(req,res,next)=>{
+  try{
+const { username,password}=req.body;
+const user=await User.findOne({username});
+if(!user)
+  return res.status(400).json({error:"incorrect username or password"});
+const isValidPassword=await bcrypt.compare(password,user.password);
+if(!isValidPassword)
+  return res.status(400).json({error:"incorrect username or password"});
+delete user.password;
+  return  res.status(200).json({user});
+  }catch(ex){
+    next(ex);
   }
 };
 

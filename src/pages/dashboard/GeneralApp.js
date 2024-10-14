@@ -1,12 +1,13 @@
-import React,{Suspense,lazy} from "react";
-const Cat=lazy(()=>import("../../components/Cat"))
+import React from 'react'
+import { Chats } from './Chats'
+
+
 const GeneralApp = () => {
-
   return (
-    <Suspense fallback="Loading...">
-    <Cat/>
-    </Suspense>
-  );
-};
+    <div className='flex-container'>
+     <Chats/>
+    </div>
+  )
+}
 
-export default GeneralApp;
+export default GeneralApp

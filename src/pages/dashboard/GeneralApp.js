@@ -4,7 +4,7 @@ import { Chats } from './Chats'
 
 const GeneralApp = () => {
   return (
-    <div className='flex-container'>
+    <div className="">
      <Chats/>
     </div>
   )

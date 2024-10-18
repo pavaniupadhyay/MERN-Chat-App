@@ -74,7 +74,7 @@ const[selected,setSeleted]=useState(0);
 console.log(theme)
 const {onToggleMode}=useSettings();
   return (
-        <>
+        <Stack direction="row">
     <Box sx={{backgroundColor:theme.palette.background.paper,
       boxShadow:"0px 0px 2px rgba(0,0,0,1)",
       height:"100vh",
@@ -160,7 +160,7 @@ const {onToggleMode}=useSettings();
   </Stack>
 </Box>
 <Outlet />
-    </>
+    </Stack>
   );
 };
 

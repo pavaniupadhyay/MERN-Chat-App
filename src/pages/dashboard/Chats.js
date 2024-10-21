@@ -119,7 +119,7 @@ export const Chats = () => {
         position:"relative",
        height:"100vh",
         width:320,
-        backgroundColor:theme.palette.mode==="light" ?"#e9f5f8":theme.palette.background.paper,
+        backgroundColor:theme.palette.mode==="light" ?"":theme.palette.background.paper,
 
         boxShadow:"0px 0px 2px rgba(0,0,0,0.25)",
         grid:"revert"

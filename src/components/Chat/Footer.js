@@ -133,11 +133,8 @@ const ChatInput = ({ openPicker, setOpenPicker }) => {
 
 const Footer = () => {
   const theme = useTheme();
-
   const isMobile = useResponsive("between", "md", "xs", "sm");
-
   const [searchParams] = useSearchParams();
-
   const [openPicker, setOpenPicker] = React.useState(false);
   return (
     <Box

@@ -5,6 +5,8 @@ import { styled , useTheme} from '@mui/material/styles';
 import { faker } from '@faker-js/faker'
 import { Stack,Avatar,Badge } from '@mui/material'
 import { CaretDown,  MagnifyingGlass,  Phone,  VideoCamera } from 'phosphor-react';
+import { ToogleSidebar } from '../../redux/slices/app';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -39,6 +41,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 
 const Hadder = () => {
+  const dispatch=useDispatch();
   const theme = useTheme();
   return (
     <Stack>
@@ -50,7 +53,9 @@ const Hadder = () => {
   boxShadow:"0px 0px 2px rgba(0,0,0,0.25)",
   }}>
 <Stack alignItems={"center"} justifyContent={"space-between"} direction={"row"} sx={{width:"100%",height:"100%"}}>
-<Stack direction={"row"} spacing={2} paddingLeft={4}>
+<Stack onClick={()=>{
+  dispatch(ToogleSidebar())
+}} direction={"row"} spacing={2} paddingLeft={4}>
   <Box>
     <StyledBadge
       overlap="circular"

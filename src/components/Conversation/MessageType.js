@@ -1,6 +1,7 @@
-import { Box, Divider, IconButton, Link, Stack, Typography, useTheme } from '@mui/material'
-import { DownloadSimple, Image } from 'phosphor-react'
+import { Box, Divider, IconButton, Link, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
+import { DotsThreeVertical, DownloadSimple, Image } from 'phosphor-react'
 import React from 'react'
+import { Message_options } from '../../data'
 
 
 
@@ -43,6 +44,7 @@ direction={"row"}
 </Typography>
       </Stack>
       </Box>
+      <MessageOptions/>
       </Stack>
   )
 }
@@ -92,6 +94,7 @@ www.youtube.com
         </Stack>
       </Stack>
       </Box>
+      <MessageOptions/>
       </Stack>
   )
 }
@@ -152,7 +155,7 @@ const Mediamsg = ({el}) => {
 </Typography>
       </Stack>
       </Box>
-
+      <MessageOptions/>
       </Stack>
   )
 }
@@ -173,6 +176,8 @@ const Textmsg = ({el}) => {
       {el.message}
     </Typography>
     </Box>
+    {/* */}
+  <MessageOptions/>
     </Stack>
   )
 }
@@ -189,4 +194,45 @@ const TimeLine = ({el}) => {
   )
 }
 
-export {TimeLine,Textmsg,Mediamsg,ReplyMsg ,Linkmsg,Docmsg} 
+const MessageOptions=()=>{
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+return(
+  <>
+    <DotsThreeVertical
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      />
+      
+            <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      
+      >
+        <Stack spacing={1} px={1}>
+          {Message_options.map((el)=>{
+            <MenuItem onClick={handleClick}>
+              {el.title}
+            </MenuItem>
+          })}
+        </Stack>
+      </Menu>
+  </>
+)
+}
+
+export {TimeLine,Textmsg,Mediamsg,ReplyMsg ,Linkmsg,Docmsg,MessageOptions} 
